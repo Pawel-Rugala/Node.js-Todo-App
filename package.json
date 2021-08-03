@@ -1,0 +1,29 @@
+{
+ "name": "node_todo_app",
+ "version": "1.0.0",
+ "description": "",
+ "main": "index.js",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node src/index.js",
+  "dev": "nodemon src/index.js"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/Pawel-Rugala/Node.js-Todo-App.git"
+ },
+ "keywords": [],
+ "author": "",
+ "license": "ISC",
+ "bugs": {
+  "url": "https://github.com/Pawel-Rugala/Node.js-Todo-App/issues"
+ },
+ "homepage": "https://github.com/Pawel-Rugala/Node.js-Todo-App#readme",
+ "dependencies": {
+  "chalk": "^4.1.2",
+  "express": "^4.17.1",
+  "mongodb": "^4.0.1",
+  "mongoose": "^5.13.5",
+  "validator": "^13.6.0"
+ }
+}
