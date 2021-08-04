@@ -5,6 +5,9 @@ const chalk = require('chalk')
 // Data Models
 const User = require('../models/user')
 
+// Middleware
+const auth = require('../middleware/auth')
+
 // CREATE
 router.post('/users', async (req, res) => {
  const newUser = new User(req.body)
@@ -12,7 +15,8 @@ router.post('/users', async (req, res) => {
   await newUser.save()
   console.log(chalk.black.bgGreen('### SUCCESS ###'))
   console.log(chalk.black.bgGreen.inverse(newUser))
-  res.status(201).send(newUser)
+  const token = await newUser.generateAuthToken()
+  res.status(201).send({ newUser, token })
  } catch (err) {
   console.log(chalk.bgRed('### ERROR ###'))
   console.log(chalk.red(err))
@@ -20,13 +24,8 @@ router.post('/users', async (req, res) => {
  }
 })
 // READ
-router.get('/users', async (req, res) => {
- try {
-  const users = await User.find({})
-  res.send(users)
- } catch (err) {
-  res.status(500).send(err)
- }
+router.get('/users/me', auth, async (req, res) => {
+ res.send(req.user)
 })
 
 router.get('/users/:id', async (req, res) => {
@@ -59,7 +58,8 @@ router.patch('/users/:id', async (req, res) => {
 router.post('/users/login', async (req, res) => {
  try {
   const user = await User.findByCredentials(req.body.email, req.body.password)
-  res.send(user)
+  const token = await user.generateAuthToken()
+  res.send({ user, token })
  } catch (err) {
   res.status(400).send()
  }
