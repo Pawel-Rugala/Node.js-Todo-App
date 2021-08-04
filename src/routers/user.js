@@ -55,6 +55,16 @@ router.patch('/users/:id', async (req, res) => {
  }
 })
 
+// Auth
+router.post('/users/login', async (req, res) => {
+ try {
+  const user = await User.findByCredentials(req.body.email, req.body.password)
+  res.send(user)
+ } catch (err) {
+  res.status(400).send()
+ }
+})
+
 // DELETE SINGLE
 router.delete('/users/:id', async (req, res) => {
  try {
