@@ -20,6 +20,7 @@
  },
  "homepage": "https://github.com/Pawel-Rugala/Node.js-Todo-App#readme",
  "dependencies": {
+  "bcryptjs": "^2.4.3",
   "chalk": "^4.1.2",
   "express": "^4.17.1",
   "mongodb": "^4.0.1",

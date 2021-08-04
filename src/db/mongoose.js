@@ -6,4 +6,5 @@ mongoose.connect(connectURL, {
  useNewUrlParser: true,
  useUnifiedTopology: true,
  dbName: 'task-app',
+ useFindAndModify: false,
 })
