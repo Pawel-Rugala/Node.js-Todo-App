@@ -5,47 +5,52 @@ const jwt = require('jsonwebtoken')
 
 const Task = require('./task')
 
-const userSchema = new mongoose.Schema({
- name: {
-  type: String,
-  required: true,
-  trim: true,
- },
- age: {
-  type: Number,
-  default: 0,
-  validate(value) {
-   if (value < 0) throw new Error('age must be positive num')
+const userSchema = new mongoose.Schema(
+ {
+  name: {
+   type: String,
+   required: true,
+   trim: true,
   },
- },
- email: {
-  type: String,
-  required: true,
-  trim: true,
-  lowercase: true,
-  unique: true,
-  validate(value) {
-   if (!validator.isEmail(value)) throw new Error('invalid email address')
-  },
- },
- password: {
-  type: String,
-  required: true,
-  trim: true,
-  minLength: [6, 'Password is too short'],
-  validate(value) {
-   if (value === 'password') throw new Error('password cannot be password')
-  },
- },
- tokens: [
-  {
-   token: {
-    type: String,
-    required: true,
+  age: {
+   type: Number,
+   default: 0,
+   validate(value) {
+    if (value < 0) throw new Error('age must be positive num')
    },
   },
- ],
-})
+  email: {
+   type: String,
+   required: true,
+   trim: true,
+   lowercase: true,
+   unique: true,
+   validate(value) {
+    if (!validator.isEmail(value)) throw new Error('invalid email address')
+   },
+  },
+  password: {
+   type: String,
+   required: true,
+   trim: true,
+   minLength: [6, 'Password is too short'],
+   validate(value) {
+    if (value === 'password') throw new Error('password cannot be password')
+   },
+  },
+  tokens: [
+   {
+    token: {
+     type: String,
+     required: true,
+    },
+   },
+  ],
+ },
+ {
+  timestamps: true,
+ }
+)
 
 userSchema.virtual('tasks', {
  ref: 'Task',
