@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const chalk = require('chalk')
+const multer = require('multer')
 
 // Data Models
 const User = require('../models/user')
@@ -82,6 +83,24 @@ router.delete('/users/me', auth, async (req, res) => {
  } catch (err) {
   res.status(500).send(err)
  }
+})
+
+const upload = multer({
+ dest: 'avatars',
+ limits: {
+  fileSize: 1000000,
+ },
+ fileFilter(req, file, cb) {
+  if (!file.originalname.match(/\.(doc|docx)$/)) {
+   return cb(new Error('Please upload MS Word document'))
+  }
+  return cb(undefined, true)
+ },
+})
+
+// Upload avatar
+router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+ res.send()
 })
 
 module.exports = router
