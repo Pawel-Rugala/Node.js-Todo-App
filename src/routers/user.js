@@ -3,6 +3,7 @@ const router = new express.Router()
 const chalk = require('chalk')
 const multer = require('multer')
 const shartp = require('sharp')
+const { sendWelcomeEmail, sendCancelEmail } = require('../emails/account')
 
 // Data Models
 const User = require('../models/user')
@@ -16,6 +17,7 @@ router.post('/users', async (req, res) => {
  const newUser = new User(req.body)
  try {
   await newUser.save()
+  sendWelcomeEmail(newUser.email, newUser.name)
   console.log(chalk.black.bgGreen('### SUCCESS ###'))
   console.log(chalk.black.bgGreen.inverse(newUser))
   const token = await newUser.generateAuthToken()
@@ -81,6 +83,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 router.delete('/users/me', auth, async (req, res) => {
  try {
   await req.user.remove()
+  sendCancelEmail(req.user.email, req.user.name)
   res.send(req.user)
  } catch (err) {
   res.status(500).send(err)

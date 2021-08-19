@@ -20,8 +20,10 @@
  },
  "homepage": "https://github.com/Pawel-Rugala/Node.js-Todo-App#readme",
  "dependencies": {
+  "@sendgrid/mail": "^7.4.6",
   "bcryptjs": "^2.4.3",
   "chalk": "^4.1.2",
+  "dotenv": "^10.0.0",
   "express": "^4.17.1",
   "jsonwebtoken": "^8.5.1",
   "mongodb": "^4.0.1",
