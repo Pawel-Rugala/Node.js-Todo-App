@@ -1,8 +1,7 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
-const connectURL =
- 'mongodb+srv://pabloapp:pabloapp@cluster0.6ikgs.mongodb.net/Cluster0?retryWrites=true&w=majority'
 
-mongoose.connect(connectURL, {
+mongoose.connect(process.env.DATABASE, {
  useNewUrlParser: true,
  useUnifiedTopology: true,
  dbName: 'task-app',
